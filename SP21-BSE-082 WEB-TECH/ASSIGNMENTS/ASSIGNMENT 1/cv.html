@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asad Naeem - Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            min-height: 100vh; 
+            margin: 0 auto; 
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .sidebar {
+            width: 30%;
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            background-image: linear-gradient(
+                135deg,
+                rgba(44, 62, 80, 0.97) 0%,
+                rgba(44, 62, 80, 0.95) 100%
+            );
+            position: relative;
+        }
+
+        .profile-info {
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .profile-info h1 {
+            font-size: 2.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .profile-info .title {
+            font-size: 1.1rem;
+            color: #ecf0f1;
+        }
+
+        .section {
+            margin-bottom: 1.8rem;
+        }
+
+        .section h2 {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            color: #ecf0f1;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.4rem;
+            font-weight: 700; 
+        }
+
+        .main-content {
+            width: 70%;
+            padding: 2rem;
+            background: white;
+        }
+
+        .main-content .section h2 {
+            color: #2c3e50;
+            border-bottom-color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skills-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #ecf0f1;
+        }
+
+        .project-card {
+            background: #f8f9fa;
+            padding: 1.3rem;
+            margin-bottom: 1.3rem;
+            border-radius: 8px;
+            border-left: 4px solid #2c3e50;
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .project-date, .project-tech {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.7rem;
+        }
+
+        .project-card ul {
+            list-style: none;
+        }
+
+        .project-card li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .project-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .education-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-info .gpa {
+            color: #ecf0f1;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .tech-skills h3 {
+            font-size: 1rem;
+            margin-top: 0.8rem;
+            margin-bottom: 0.4rem;
+            color: #ecf0f1;
+            font-weight: 600;
+        }
+
+        .tech-skills p {
+            color: #bdc3c7;
+            margin-bottom: 0.8rem;
+        }
+
+        .summary-content ul {
+            list-style: none;
+        }
+
+        .summary-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .summary-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar, .main-content {
+                width: 100%;
+            }
+            
+            .main-content {
+                margin-top: 0;
+            }
+        }
+
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="profile-info">
+                <h1>Asad Naeem</h1>
+                <p class="title">SOFTWARE DEVELOPER</p>
+            </div>
+
+            <section class="section">
+                <h2>CONTACT</h2>
+                <div class="contact-info">
+                    <p>0307-6718155</p>
+                    <p>asadnaeem8@gmail.com</p>
+                    <p>Lahore, Pakistan</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>EDUCATION</h2>
+                <div class="education-info">
+                    <h3>Bachelor of Science in Software Engineering</h3>
+                    <p>COMSATS Lahore</p>
+                    <p>8th semester</p>
+                    <p class="gpa">CGPA 2.7</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>SOFT SKILLS</h2>
+                <ul class="skills-list">
+                    <li>Communication</li>
+                    <li>Teamwork</li>
+                    <li>Problem-Solving</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>TECHNICAL SKILLS</h2>
+                <div class="tech-skills">
+                    <h3>Programming Languages:</h3>
+                    <p>JavaScript, C++, Java, C, Python</p>
+                    <h3>Frameworks:</h3>
+                    <p>React, React Native, Django</p>
+                    <h3>Database:</h3>
+                    <p>MySQL</p>
+                    <h3>ML Libraries:</h3>
+                    <p>TensorFlow, Keras</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="section profile-summary">
+                <h2>PROFILE SUMMARY</h2>
+                <div class="summary-content">
+                    <ul>
+                        <li>Skilled Software Developer with expertise in React, React Native, C++, and C for building efficient and scalable applications.</li>
+                        <li>Front-End & Mobile App Development experience with a focus on creating interactive and user-friendly interfaces.</li>
+                        <li>Proficient in Python, JavaScript, C++, Java, with expertise in frameworks like Django and React, as well as machine learning libraries such as TensorFlow and Keras.</li>
+                        <li>Passionate about learning and keeping up with the latest trends in software development and mobile technologies.</li>
+                        <li>Team Player & Effective Communicator, capable of collaborating in fast-paced development environments.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section projects">
+                <h2>ACADEMIC PROJECTS</h2>
+                
+                <div class="project-card">
+                    <h3>Evo – AI Assistant App</h3>
+                    <p class="project-date">FYP</p>
+                    <ul>
+                        <li>Developed an AI-powered virtual assistant similar to Siri and Google Assistant.</li>
+                        <li>Implemented voice recognition, NLP, and user interaction capabilities.</li>
+                        <li>Integrated APIs for real-time responses and smart automation.</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3>Checkout Republic - E-Commerce Store</h3>
+                    <p class="project-date">February 2024</p>
+                    <p class="project-tech">React, React Native</p>
+                    <ul>
+                        <li>Designed and developed a full-featured e-commerce platform.</li>
+                        <li>Implemented payment gateway integration and API connections for seamless transactions.</li>
+                        <li>Developed user authentication, product management, and order processing functionalities.</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3>Smart Attendance System</h3>
+                    <p class="project-date">March 2024 - April 2024</p>
+                    <p class="project-tech">React, React Native, MySQL</p>
+                    <ul>
+                        <li>Developed a facial recognition-based attendance system using AI and machine learning.</li>
+                        <li>Implemented real-time image processing to automate attendance marking.</li>
+                        <li>Designed a user-friendly interface for seamless interaction and attendance tracking.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

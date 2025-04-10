@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyle & Scott Checkout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .checkout-form {
+            flex: 2;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .order-summary {
+            flex: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            align-self: flex-start;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #222;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .input-row {
+            display: flex;
+            gap: 15px;
+        }
+        .input-row .form-group {
+            flex: 1;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+        }
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .payment-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .payment-option.selected {
+            border-color: #000;
+        }
+        .payment-option input {
+            margin-right: 10px;
+        }
+        .payment-logos {
+            display: flex;
+            gap: 5px;
+        }
+        .payment-logos img {
+            height: 24px;
+        }
+        .card-details {
+            margin-top: 15px;
+        }
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .product-image {
+            width: 80px;
+            height: 80px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .product-info {
+            flex: 1;
+        }
+        .product-price {
+            font-weight: bold;
+        }
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #333;
+        }
+        .error-message {
+            color: #d9534f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        input.error {
+            border-color: #d9534f;
+        }
+        .terms {
+            font-size: 14px;
+            margin-top: 20px;
+            color: #666;
+        }
+        .terms a {
+            color: #000;
+            text-decoration: underline;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer a {
+            color: #333;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="checkout-form">
+            <div class="header">
+                <img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/LAB-LASKS/Lab Task 2/logo1.jpg" alt="Lyle & Scott" class="logo">
+            </div>
+            
+            <form id="checkoutForm" novalidate>
+                <div class="form-section">
+                    <h2>Contact</h2>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        <div id="emailError" class="error-message">Please enter a valid email address</div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsOffers" name="newsOffers">
+                        <label for="newsOffers">Email me with news and offers</label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Delivery</h2>
+                    <div class="form-group">
+                        <label for="country">Country/Region</label>
+                        <select id="country" name="country" required>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Italy">Italy</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z ]+">
+                            <div id="firstNameError" class="error-message">Please enter a valid first name (letters only)</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z ]+">
+                            <div id="lastNameError" class="error-message">Please enter a valid last name (letters only)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" required>
+                        <div id="addressError" class="error-message">Please enter your address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apartment">Apartment, suite, etc. (optional)</label>
+                        <input type="text" id="apartment" name="apartment">
+                    </div>
+                    
+                    <div class="input-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" required>
+                            <div id="cityError" class="error-message">Please enter your city</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postcode">Postcode</label>
+                            <input type="text" id="postcode" name="postcode" required>
+                            <div id="postcodeError" class="error-message">Please enter a valid postcode</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,12}" minlength="10" maxlength="12">
+                        <div id="phoneError" class="error-message">Please enter a valid phone number (10-12 digits)</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Payment</h2>
+                    <p>All transactions are secure and encrypted.</p>
+                    
+                    <div class="payment-options">
+                        <div class="payment-option selected">
+                            <div>
+                                <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" checked>
+                                <label for="creditCard">Credit card</label>
+                            </div>
+                            <div class="payment-logos">
+                                <img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/LAB-LASKS/Lab Task 2/1547549.webp" alt="Visa">
+                                <img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/LAB-LASKS/Lab Task 2/Mastercard-Logo.wine.png" alt="Mastercard">
+                                <img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/LAB-LASKS/Lab Task 2/download.png" alt="Amex">
+                            </div>
+                        </div>
+                        
+                        <div class="payment-option">
+                            <div>
+                                <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                                <label for="paypal">PayPal</label>
+                            </div>
+                            <img src="/api/placeholder/80/24" alt="PayPal">
+                        </div>
+                    </div>
+                    
+                    <div class="card-details" id="cardDetailsSection">
+                        <div class="form-group">
+                            <label for="cardNumber">Card number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" required pattern="[0-9]{16}" maxlength="16">
+                            <div id="cardNumberError" class="error-message">Please enter a valid 16-digit card number</div>
+                        </div>
+                        
+                        <div class="input-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiration date (MM / YY)</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM / YY" required pattern="(0[1-9]|1[0-2])\/([0-9]{2})" maxlength="5">
+                                <div id="expiryDateError" class="error-message">Please enter a valid future expiry date (MM/YY)</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">Security code</label>
+                                <input type="text" id="cvv" name="cvv" required pattern="[0-9]{3}" maxlength="3">
+                                <div id="cvvError" class="error-message">Please enter a valid 3-digit CVV</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Complete order</button>
+                
+                <div class="terms">
+                    By placing your order, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                </div>
+            </form>
+        </div>
+        
+        <div class="order-summary">
+            <h2>Order summary</h2>
+            
+            <div class="product-item">
+                <div class="product-image">
+                    <img src="/api/placeholder/80/80" alt="Pullover Hoodie">
+                </div>
+                <div class="product-info">
+                    <h3>Pullover Hoodie</h3>
+                    <p>Size: S</p>
+                </div>
+                <div class="product-price">£70.00</div>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" placeholder="Discount code or gift card">
+            </div>
+            
+            <div class="order-total">
+                <span>Total</span>
+                <span>£70.00</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <a href="#">Refund policy</a>
+        <a href="#">Terms of service</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('checkoutForm');
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            const cardDetailsSection = document.getElementById('cardDetailsSection');
+            
+            // Payment method selection
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radioInput = this.querySelector('input[type="radio"]');
+                    radioInput.checked = true;
+                    
+                    paymentOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // Show/hide card details based on payment method
+                    if (radioInput.value === 'creditCard') {
+                        cardDetailsSection.style.display = 'block';
+                    } else {
+                        cardDetailsSection.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Form validation
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (validateForm()) {
+                    // If form is valid, we would normally submit it
+                    alert('Order successfully placed!');
+                    form.reset();
+                    // Reset error states
+                    const errorFields = document.querySelectorAll('.error');
+                    errorFields.forEach(field => {
+                        field.classList.remove('error');
+                    });
+                    const errorMessages = document.querySelectorAll('.error-message');
+                    errorMessages.forEach(message => {
+                        message.style.display = 'none';
+                    });
+                }
+            });
+            
+            // Format credit card number with spaces
+            const cardNumberInput = document.getElementById('cardNumber');
+            cardNumberInput.addEventListener('input', function(e) {
+                // Remove non-digit characters
+                let value = this.value.replace(/\D/g, '');
+                // Limit to 16 digits
+                value = value.substring(0, 16);
+                this.value = value;
+            });
+            
+            // Format expiry date
+            const expiryDateInput = document.getElementById('expiryDate');
+            expiryDateInput.addEventListener('input', function(e) {
+                let value = this.value.replace(/\D/g, '');
+                
+                if (value.length > 2) {
+                    this.value = value.substring(0, 2) + ' / ' + value.substring(2, 4);
+                } else {
+                    this.value = value;
+                }
+            });
+            
+            // Validate form function
+            function validateForm() {
+                let isValid = true;
+                
+                // Email validation
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('emailError');
+                const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                
+                if (!email.value || !emailPattern.test(email.value)) {
+                    showError(email, emailError);
+                    isValid = false;
+                } else {
+                    hideError(email, emailError);
+                }
+                
+                // First name validation
+                const firstName = document.getElementById('firstName');
+                const firstNameError = document.getElementById('firstNameError');
+                const namePattern = /^[A-Za-z ]+$/;
+                
+                if (!firstName.value || !namePattern.test(firstName.value)) {
+                    showError(firstName, firstNameError);
+                    isValid = false;
+                } else {
+                    hideError(firstName, firstNameError);
+                }
+                
+                // Last name validation
+                const lastName = document.getElementById('lastName');
+                const lastNameError = document.getElementById('lastNameError');
+                
+                if (!lastName.value || !namePattern.test(lastName.value)) {
+                    showError(lastName, lastNameError);
+                    isValid = false;
+                } else {
+                    hideError(lastName, lastNameError);
+                }
+                
+                // Address validation
+                const address = document.getElementById('address');
+                const addressError = document.getElementById('addressError');
+                
+                if (!address.value.trim()) {
+                    showError(address, addressError);
+                    isValid = false;
+                } else {
+                    hideError(address, addressError);
+                }
+                
+                // City validation
+                const city = document.getElementById('city');
+                const cityError = document.getElementById('cityError');
+                
+                if (!city.value.trim()) {
+                    showError(city, cityError);
+                    isValid = false;
+                } else {
+                    hideError(city, cityError);
+                }
+                
+                // Postcode validation
+                const postcode = document.getElementById('postcode');
+                const postcodeError = document.getElementById('postcodeError');
+                
+                if (!postcode.value.trim()) {
+                    showError(postcode, postcodeError);
+                    isValid = false;
+                } else {
+                    hideError(postcode, postcodeError);
+                }
+                
+                // Phone validation
+                const phone = document.getElementById('phone');
+                const phoneError = document.getElementById('phoneError');
+                const phonePattern = /^[0-9]{10,12}$/;
+                
+                if (!phone.value || !phonePattern.test(phone.value)) {
+                    showError(phone, phoneError);
+                    isValid = false;
+                } else {
+                    hideError(phone, phoneError);
+                }
+                
+                // If credit card is selected, validate card details
+                const creditCardOption = document.getElementById('creditCard');
+                if (creditCardOption.checked) {
+                    // Card number validation
+                    const cardNumber = document.getElementById('cardNumber');
+                    const cardNumberError = document.getElementById('cardNumberError');
+                    const cardPattern = /^[0-9]{16}$/;
+                    
+                    if (!cardNumber.value || !cardPattern.test(cardNumber.value)) {
+                        showError(cardNumber, cardNumberError);
+                        isValid = false;
+                    } else {
+                        hideError(cardNumber, cardNumberError);
+                    }
+                    
+                    // Expiry date validation
+                    const expiryDate = document.getElementById('expiryDate');
+                    const expiryDateError = document.getElementById('expiryDateError');
+                    
+                    if (!validateExpiryDate(expiryDate.value)) {
+                        showError(expiryDate, expiryDateError);
+                        isValid = false;
+                    } else {
+                        hideError(expiryDate, expiryDateError);
+                    }
+                    
+                    // CVV validation
+                    const cvv = document.getElementById('cvv');
+                    const cvvError = document.getElementById('cvvError');
+                    const cvvPattern = /^[0-9]{3}$/;
+                    
+                    if (!cvv.value || !cvvPattern.test(cvv.value)) {
+                        showError(cvv, cvvError);
+                        isValid = false;
+                    } else {
+                        hideError(cvv, cvvError);
+                    }
+                }
+                
+                return isValid;
+            }
+            
+            // Validate expiry date
+            function validateExpiryDate(value) {
+                // Extract month and year
+                const parts = value.split('/');
+                if (parts.length !== 2) return false;
+                
+                let month = parts[0].trim();
+                let year = parts[1].trim();
+                
+                // Check format
+                if (!/^\d{2}$/.test(month) || !/^\d{2}$/.test(year)) {
+                    return false;
+                }
+                
+                // Convert to numbers
+                month = parseInt(month, 10);
+                // Assume 20xx for year
+                year = parseInt('20' + year, 10);
+                
+                // Check valid month
+                if (month < 1 || month > 12) {
+                    return false;
+                }
+                
+                // Check if date is in the future
+                const now = new Date();
+                const currentMonth = now.getMonth() + 1; // getMonth() is zero-based
+                const currentYear = now.getFullYear();
+                
+                if (year < currentYear || (year === currentYear && month < currentMonth)) {
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Show error message
+            function showError(inputElement, errorElement) {
+                inputElement.classList.add('error');
+                errorElement.style.display = 'block';
+            }
+            
+            // Hide error message
+            function hideError(inputElement, errorElement) {
+                inputElement.classList.remove('error');
+                errorElement.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

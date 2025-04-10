@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-banner {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .logo img {
+            height: 100%;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        
+        nav ul li a:hover {
+            color: #777;
+        }
+        
+        .right-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .right-nav .language {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .right-nav .icon {
+            margin-left: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        /* Main Content Section */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            background-color: #f8f8f8;
+            position: relative;
+        }
+        
+        .assignments-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 800px;
+            z-index: 2;
+        }
+        
+        .assignments-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .assignment-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .assignment-link {
+            display: block;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .assignment-link:hover {
+            background-color: #000;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .assignment-link.active {
+            background-color: #000;
+            color: white;
+        }
+        
+        /* Iframe Container */
+        .iframe-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .iframe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .iframe-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .close-iframe {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .assignment-iframe {
+            width: 90%;
+            height: 80%;
+            border: none;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            padding: 40px 20px;
+            border-top: 1px solid #eee;
+            position: relative;
+            z-index: 10;
+        }
+
+        .newsletter {
+            margin-bottom: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .newsletter h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .newsletter p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .signup-form {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .email-input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        .signup-btn {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .terms {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .cookie-prefs {
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            color: #000;
+            font-size: 18px;
+        }
+
+        /* Footer links section */
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-category h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .footer-category ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-category li {
+            margin-bottom: 10px;
+        }
+
+        .footer-category a {
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+            position: relative;
+        }
+
+        /* Underline effect on hover */
+        .footer-category a:hover::after,
+        .cookie-prefs a:hover::after,
+        .terms a:hover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: #333;
+            bottom: -2px;
+            left: 0;
+        }
+
+        /* Footer bottom section */
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo-copyright {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-logo {
+            height: 40px;
+        }
+
+        .logo-copyright p {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .payment-methods img {
+            height: 24px;
+        }
+
+        .region-selector {
+            display: flex;
+            align-items: center;
+        }
+
+        .region-btn {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .region-btn img {
+            height: 16px;
+            margin-right: 8px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+            }
+            
+            .footer-category {
+                width: 50%;
+                margin-bottom: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .iframe-header {
+                width: 95%;
+            }
+            
+            .assignment-iframe {
+                width: 95%;
+                height: 75%;
+            }
+        }
+
+        @media (max-width: 560px) {
+            nav ul {
+                display: none;
+            }
+            
+            .footer-category {
+                width: 100%;
+            }
+            
+            .signup-form {
+                flex-direction: column;
+            }
+            
+            .email-input {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-banner">
+        Free delivery on orders over £70*
+    </div>
+    
+    <header>
+        <div class="menu-icon">&#9776;</div>
+        
+        <nav>
+            <ul>
+                <li><a href="#">New In</a></li>
+                <li><a href="#">Collections</a></li>
+                <li><a href="#">Mens</a></li>
+                <li><a href="#">Kids</a></li>
+            </ul>
+        </nav>
+        
+        <div class="logo">
+            <img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/Lab Task 2/logo1.jpg" alt="Fashion Logo">
+        </div>
+        
+        <div class="right-nav">
+            <div class="language">
+                <span>UK | GBP (£)</span>
+            </div>
+            <div class="icon">&#128269;</div>
+            <div class="icon">&#128100;</div>
+            <div class="icon">&#128722;</div>
+        </div>
+    </header>
+    
+    <div class="main-content">
+        <div class="assignments-container">
+            <h2 class="assignments-title">Web Development Assignments Portal</h2>
+            <div class="assignment-links">
+                <a href="#" class="assignment-link" data-path="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/ASSIGNMENT 1/cv.html" data-title="Assignment 1" onclick="loadAssignment(this); return false;">
+                    Assignment 1: CV using HTML & CSS</a>
+                <a href="#" class="assignment-link" data-path="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/Assignment 2/index.html" data-title="Assignment 2" onclick="loadAssignment(this); return false;">Assignment 2: E-Commerce Landing Page</a>
+                <a href="#" class="assignment-link" data-path="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/Lab Task 1/index.html" data-title="Task 1" onclick="loadAssignment(this); return false;">Lab Task 1: Landing Page using Bootstrap</a>
+                <a href="#" class="assignment-link" data-path="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/Lab Task 2/index.html" data-title="Task 2" onclick="loadAssignment(this); return false;">Lab Task 2: Checkout Page with Validation</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Iframe container that appears when a link is clicked -->
+    <div class="iframe-container" id="iframe-container">
+        <div class="iframe-header">
+            <div class="iframe-title" id="iframe-title">Assignment</div>
+            <button class="close-iframe" onclick="closeIframe()">×</button>
+        </div>
+        <iframe id="assignment-iframe" class="assignment-iframe" src="about:blank"></iframe>
+    </div>
+    
+    <footer class="footer">
+        <div class="newsletter">
+            <h3>Get 10% off your first order *</h3>
+            <p>Sign up and join our community</p>
+            <form class="signup-form">
+                <input type="email" placeholder="Email" class="email-input">
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <p class="terms">By signing up you confirm you have read and agree to our <a href="#">Privacy Policy.</a> * Exclusions apply. <a href="#">Read more.</a></p>
+            <div class="cookie-prefs">
+                <a href="#">Cookie Preferences</a>
+            </div>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    
+        <div class="footer-links">
+            <div class="footer-category">
+                <h4>BRAND</h4>
+                <ul>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">150 Years</a></li>
+                    <li><a href="#">Kits For Clubs</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Our Stores</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-category">
+                <h4>ACCOUNT</h4>
+                <ul>
+                    <li><a href="#">Account</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-category">
+                <h4>HELP</h4>
+                <ul>
+                    <li><a href="#">Size Guides</a></li>
+                    <li><a href="#">FAQ's</a></li>
+                    <li><a href="#">Track My Order</a></li>
+                    <li><a href="#">Return/Exchange My Order</a></li>
+                    <li><a href="#">Student Discount</a></li>
+                    <li><a href="#">Disability Discount</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-category">
+                <h4>PRIVACY & SECURITY</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Promotions</a></li>
+                    <li><a href="#">Modern Slavery Act</a></li>
+                    <li><a href="#">Third Party Providers</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <div class="logo-copyright">
+                <img src="path/to/logo1.jpg" alt="Logo" class="footer-logo">
+                <p>© 2025 All rights reserved.</p>
+            </div>
+            
+            <div class="payment-methods">
+                <img src="https://media.invisioncic.com/p289038/monthly_2022_10/Payment-methods.png.2b9ba23475aaa15189f555f77ec3a549.png" alt="Payment Methods">
+            </div>
+            
+            <div class="region-selector">
+                <a href="#" class="region-btn"><img src="/Users/muhammadasadnaeem/Documents/SP21-BSE-082 WEB-TECH/EXAMS/lab_midterm_exam/Assignment 2/pics/images.png" alt="UK Flag"> UK | GBP (£) <i class="fas fa-chevron-down"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function loadAssignment(element) {
+            // Get all links and remove active class
+            document.querySelectorAll('.assignment-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Add active class to clicked link
+            element.classList.add('active');
+            
+            // Get path and title from data attributes
+            const path = element.getAttribute('data-path');
+            const title = element.getAttribute('data-title');
+            
+            // Set iframe source and title
+            document.getElementById('assignment-iframe').src = path;
+            document.getElementById('iframe-title').textContent = title;
+            
+            // Show the iframe container
+            document.getElementById('iframe-container').style.display = 'flex';
+            
+            // Disable scrolling on the body
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeIframe() {
+            // Hide the iframe container
+            document.getElementById('iframe-container').style.display = 'none';
+            
+            // Clear the iframe source
+            document.getElementById('assignment-iframe').src = 'about:blank';
+            
+            // Enable scrolling on the body
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
